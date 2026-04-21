@@ -1198,6 +1198,12 @@
             <div class="contact-card reveal">
               <h3>أرسل استفسارك</h3>
               <form class="contact-form" id="contactForm">
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="طلب جديد من موقع محمود الجدامي"
+                />
+                <input type="hidden" name="_template" value="table" />
                 <div class="field">
                   <label for="name">الاسم</label>
                   <input
@@ -1326,10 +1332,44 @@
 
       reveals.forEach((el) => observer.observe(el));
 
-      contactForm?.addEventListener("submit", (e) => {
+      const FORMSUBMIT_EMAIL = "baraahassan500@gmail.com";
+
+      contactForm?.addEventListener("submit", async (e) => {
         e.preventDefault();
-        formNote.textContent =
-          "تم استلام طلبك في النسخة التجريبية. يمكن ربطه مباشرة بواتساب أو بريد إلكتروني في النسخة النهائية.";
+        if (!contactForm.checkValidity()) {
+          contactForm.reportValidity();
+          return;
+        }
+
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+        formNote.textContent = "جاري إرسال الطلب…";
+
+        try {
+          const fd = new FormData(contactForm);
+          const res = await fetch(
+            `https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`,
+            {
+              method: "POST",
+              body: fd,
+              headers: { Accept: "application/json" },
+            },
+          );
+
+          if (res.ok) {
+            formNote.textContent =
+              "تم إرسال طلبك بنجاح. سيتم التواصل معك قريبًا.";
+            contactForm.reset();
+          } else {
+            formNote.textContent =
+              "تعذر إرسال الطلب. تحقق من الاتصال أو حاول مرة أخرى لاحقًا.";
+          }
+        } catch {
+          formNote.textContent =
+            "تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت وحاول مرة أخرى.";
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+        }
       });
     </script>
   </body>
