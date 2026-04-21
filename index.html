@@ -97,6 +97,7 @@
         justify-content: space-between;
         gap: 20px;
         min-height: 80px;
+        position: relative;
       }
 
       .brand {
@@ -204,6 +205,10 @@
         align-items: center;
       }
 
+      .hero-grid > .reveal {
+        min-width: 0;
+      }
+
       .eyebrow {
         display: inline-flex;
         align-items: center;
@@ -227,7 +232,7 @@
 
       .hero h1 span {
         color: var(--gold-bright);
-        display: inline-block;
+        display: inline;
       }
 
       .hero p {
@@ -280,7 +285,8 @@
 
       .photo-stack {
         position: relative;
-        height: 100%;
+        min-height: 480px;
+        width: 100%;
       }
 
       .frame {
@@ -333,6 +339,7 @@
         position: absolute;
         bottom: 50px;
         left: 12px;
+        right: auto;
         background: rgba(18, 15, 12, 0.92);
         backdrop-filter: blur(12px);
         border: 1px solid var(--line);
@@ -340,7 +347,9 @@
         padding: 16px 18px;
         box-shadow: var(--shadow);
         z-index: 5;
-        max-width: 240px;
+        max-width: min(240px, calc(100% - 24px));
+        overflow-wrap: break-word;
+        word-wrap: break-word;
       }
 
       .floating-card strong {
@@ -380,6 +389,8 @@
         color: var(--muted);
         max-width: 600px;
         line-height: 1.8;
+        min-width: 0;
+        overflow-wrap: break-word;
       }
 
       .services-grid,
@@ -516,6 +527,8 @@
         bottom: 18px;
         z-index: 2;
         color: var(--white);
+        overflow-wrap: break-word;
+        min-width: 0;
       }
 
       .gallery-caption h4 {
@@ -602,12 +615,13 @@
 
       .contact-item {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 14px;
         padding: 14px 16px;
         border-radius: 18px;
         background: var(--gold-soft);
         border: 1px solid var(--line);
+        min-width: 0;
       }
 
       .contact-item strong {
@@ -618,6 +632,8 @@
       .contact-item span {
         color: var(--muted);
         font-size: 0.92rem;
+        overflow-wrap: anywhere;
+        word-break: break-word;
       }
 
       .contact-form {
@@ -772,8 +788,16 @@
           grid-template-columns: 1fr;
         }
 
+        .hero-stats {
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        }
+
         .hero-visual {
           min-height: 500px;
+        }
+
+        .photo-stack {
+          min-height: 440px;
         }
       }
 
@@ -790,8 +814,9 @@
         .nav-links {
           position: absolute;
           top: calc(100% + 10px);
-          right: 16px;
-          left: 16px;
+          right: 0;
+          left: 0;
+          z-index: 1001;
           background: rgba(18, 15, 12, 0.97);
           backdrop-filter: blur(14px);
           border: 1px solid var(--line);
@@ -801,6 +826,9 @@
           display: none;
           flex-direction: column;
           align-items: flex-start;
+          max-height: min(70vh, 420px);
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
         }
 
         .nav-links.open {
@@ -819,31 +847,112 @@
         }
 
         .hero-visual {
-          min-height: 420px;
+          min-height: 400px;
+          margin-top: 8px;
+        }
+
+        .photo-stack {
+          min-height: 380px;
         }
 
         .frame.one {
           width: 78%;
-          height: 360px;
+          height: 320px;
         }
 
         .frame.two {
           width: 58%;
-          height: 220px;
+          height: 200px;
         }
 
         .floating-card {
-          left: auto;
+          left: 10px;
           right: 10px;
-          bottom: 6px;
+          max-width: none;
+          bottom: 12px;
         }
 
         .section-title {
-          align-items: start;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+        }
+
+        .section-title p {
+          max-width: none;
         }
 
         .brand-title {
           font-size: 1.35rem;
+        }
+
+        .hero h1 {
+          overflow-wrap: break-word;
+        }
+
+        .eyebrow {
+          max-width: 100%;
+          white-space: normal;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav {
+          flex-wrap: wrap;
+          row-gap: 10px;
+        }
+
+        .brand {
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .hero {
+          padding-top: 32px;
+        }
+
+        .hero-visual {
+          min-height: 340px;
+        }
+
+        .photo-stack {
+          min-height: 320px;
+        }
+
+        .frame.one {
+          width: 82%;
+          height: 280px;
+        }
+
+        .frame.two {
+          width: 62%;
+          height: 180px;
+        }
+
+        .floating-card {
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .floating-card span {
+          font-size: 0.88rem;
+        }
+
+        .gallery-item {
+          min-height: 260px;
+        }
+
+        .btn {
+          padding: 12px 18px;
+          font-size: 0.92rem;
+        }
+
+        .topbar .nav > div:last-child {
+          flex-shrink: 0;
+        }
+
+        .topbar .nav > div:last-child .btn-primary {
+          padding-inline: 16px;
         }
       }
     </style>
