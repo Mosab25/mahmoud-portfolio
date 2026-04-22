@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تواصل واحجز جلسة تصوير | محمود الجدامي</title>
+    <meta name="description" content="تواصل مع محمود الجدامي لحجز تصوير زفاف أو خطوبة في السعودية." />
+    <link rel="canonical" href="https://mahmoud-aljadami-wedding.netlify.app/contact.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar"><div class="container nav"><a href="index.html"><span class="brand-title">محمود الجدامي</span><span class="brand-sub">WEDDING PHOTOGRAPHER</span></a><button class="mobile-toggle" id="mobileToggle" aria-label="القائمة">☰</button><nav class="nav-links" id="navLinks"><a href="index.html">الرئيسية</a><a href="services.html">الخدمات</a><a href="portfolio.html">الأعمال</a><a href="about.html">من نحن</a><a href="blog.html">المدونة</a><a class="active" href="contact.html">تواصل</a></nav></div></header>
+    <main>
+      <section class="page-head"><div class="container reveal"><h1>احجز موعد تصوير مناسبتك</h1><p>أرسل تفاصيل المناسبة وسنعود إليك بسرعة بعرض مناسب وخطة تصوير واضحة.</p></div></section>
+      <section><div class="container contact-grid">
+        <div class="contact-card reveal" data-reveal="right">
+          <h2>بيانات التواصل</h2>
+          <div class="contact-list">
+            <div class="contact-item"><div><strong>الهاتف / واتساب</strong><span>+966 251 884 588</span></div></div>
+            <div class="contact-item"><div><strong>البريد الإلكتروني</strong><span>mahmoudalhadami20@gmail.com</span></div></div>
+            <div class="contact-item"><div><strong>المنطقة</strong><span>السعودية • متاح للتصوير والسفر</span></div></div>
+            <div class="contact-item"><div><strong>إنستغرام</strong><span>@mahmoud.aljadami1</span></div></div>
+          </div>
+        </div>
+        <div class="contact-card reveal" data-reveal="left">
+          <h2>نموذج الحجز</h2>
+          <form class="contact-form" id="contactForm">
+            <input type="hidden" name="_subject" value="طلب جديد من موقع محمود الجدامي" />
+            <input type="hidden" name="_template" value="table" />
+            <div class="field"><label for="name">الاسم</label><input id="name" name="name" type="text" placeholder="اكتب اسمك" required /></div>
+            <div class="field"><label for="phone">رقم الهاتف</label><div class="phone-input-wrap"><span class="phone-prefix"><span>🇸🇦</span><span>+966</span></span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="5XXXXXXXX" minlength="9" maxlength="9" pattern="[0-9]{9}" title="اكتب 9 أرقام فقط بدون كود الدولة" required /></div></div>
+            <div class="field"><label for="event">نوع المناسبة</label><select id="event" name="event" required><option value="">اختر المناسبة</option><option>حفل زفاف</option><option>خِطبة</option><option>جلسة ما قبل الزفاف</option><option>أخرى</option></select></div>
+            <div class="field"><label for="message">تفاصيل الطلب</label><textarea id="message" name="message" placeholder="اكتب تاريخ المناسبة، المدينة، وعدد ساعات التغطية"></textarea></div>
+            <button class="btn btn-primary" type="submit">إرسال الطلب</button>
+            <p class="form-note" id="formNote"></p>
+          </form>
+        </div>
+      </div></section>
+    </main>
+    <footer class="footer"><div class="container"><p>© جميع الحقوق محفوظة - محمود الجدامي</p></div></footer>
+    <script src="script.js"></script>
+  </body>
+</html>

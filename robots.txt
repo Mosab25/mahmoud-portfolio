@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mahmoud-aljadami-wedding.netlify.app/sitemap.xml
