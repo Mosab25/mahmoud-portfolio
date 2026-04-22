@@ -83,7 +83,8 @@ if (hasPager && (prevPage || nextPage)) {
   document.body.appendChild(swipeNav);
 
   function toggleSwipeNavVisibility() {
-    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 520;
+    const nearBottom =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 520;
     swipeNav.classList.toggle("visible", nearBottom);
   }
 
@@ -92,36 +93,53 @@ if (hasPager && (prevPage || nextPage)) {
   let canTrackSwipe = false;
   let wheelLocked = false;
 
-  window.addEventListener("touchstart", (event) => {
-    if (event.touches.length !== 1) return;
-    if (shouldIgnoreSwipeTarget(event.target)) return;
-    const touch = event.touches[0];
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
-    canTrackSwipe = true;
-  }, { passive: true });
+  window.addEventListener(
+    "touchstart",
+    (event) => {
+      if (event.touches.length !== 1) return;
+      if (shouldIgnoreSwipeTarget(event.target)) return;
+      const touch = event.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      canTrackSwipe = true;
+    },
+    { passive: true },
+  );
 
-  window.addEventListener("touchend", (event) => {
-    if (!canTrackSwipe) return;
-    const touch = event.changedTouches[0];
-    const deltaX = touch.clientX - touchStartX;
-    const deltaY = touch.clientY - touchStartY;
-    canTrackSwipe = false;
-    if (Math.abs(deltaX) < 80 || Math.abs(deltaY) > 70) return;
-    if (deltaX < 0) navigatePage(nextPage);
-    if (deltaX > 0) navigatePage(prevPage);
-  }, { passive: true });
+  window.addEventListener(
+    "touchend",
+    (event) => {
+      if (!canTrackSwipe) return;
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      canTrackSwipe = false;
+      if (Math.abs(deltaX) < 80 || Math.abs(deltaY) > 70) return;
+      if (deltaX < 0) navigatePage(nextPage);
+      if (deltaX > 0) navigatePage(prevPage);
+    },
+    { passive: true },
+  );
 
-  window.addEventListener("wheel", (event) => {
-    if (wheelLocked || event.deltaY <= 45 || !nextPage) return;
-    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 24;
-    if (!nearBottom) return;
-    wheelLocked = true;
-    navigatePage(nextPage);
-    window.setTimeout(() => { wheelLocked = false; }, 700);
-  }, { passive: true });
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (wheelLocked || event.deltaY <= 45 || !nextPage) return;
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 24;
+      if (!nearBottom) return;
+      wheelLocked = true;
+      navigatePage(nextPage);
+      window.setTimeout(() => {
+        wheelLocked = false;
+      }, 700);
+    },
+    { passive: true },
+  );
 
-  window.addEventListener("scroll", toggleSwipeNavVisibility, { passive: true });
+  window.addEventListener("scroll", toggleSwipeNavVisibility, {
+    passive: true,
+  });
   window.addEventListener("resize", toggleSwipeNavVisibility);
   toggleSwipeNavVisibility();
 }
@@ -135,12 +153,17 @@ function animateParallax() {
   });
 }
 parallaxItems.forEach((item) => {
-  item.dataset.baseTransform = getComputedStyle(item).transform === "none" ? "" : getComputedStyle(item).transform;
+  item.dataset.baseTransform =
+    getComputedStyle(item).transform === "none"
+      ? ""
+      : getComputedStyle(item).transform;
 });
 window.addEventListener("scroll", animateParallax, { passive: true });
 animateParallax();
 
-const galleryItems = document.querySelectorAll(".gallery-item, .portfolio-item img, [data-lightbox]");
+const galleryItems = document.querySelectorAll(
+  ".gallery-item, .portfolio-item img, [data-lightbox]",
+);
 if (galleryItems.length) {
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
@@ -207,13 +230,17 @@ contactForm?.addEventListener("submit", async (e) => {
     });
 
     if (res.ok) {
-      if (formNote) formNote.textContent = "تم إرسال طلبك بنجاح. سيتم التواصل معك قريبًا.";
+      if (formNote)
+        formNote.textContent = "تم إرسال طلبك بنجاح. سيتم التواصل معك قريبًا.";
       contactForm.reset();
     } else if (formNote) {
-      formNote.textContent = "تعذر إرسال الطلب. تحقق من الاتصال أو حاول مرة أخرى لاحقًا.";
+      formNote.textContent =
+        "تعذر إرسال الطلب. تحقق من الاتصال أو حاول مرة أخرى لاحقًا.";
     }
   } catch {
-    if (formNote) formNote.textContent = "تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت وحاول مرة أخرى.";
+    if (formNote)
+      formNote.textContent =
+        "تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت وحاول مرة أخرى.";
   } finally {
     if (submitBtn) submitBtn.disabled = false;
   }
