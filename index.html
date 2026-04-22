@@ -667,6 +667,41 @@
           box-shadow 0.25s ease;
       }
 
+      .phone-input-wrap {
+        display: flex;
+        align-items: center;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: rgba(14, 12, 10, 0.75);
+        padding-inline: 12px;
+      }
+
+      .phone-prefix {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text);
+        white-space: nowrap;
+        padding-inline-end: 10px;
+        margin-inline-end: 10px;
+        border-inline-end: 1px solid var(--line);
+      }
+
+      .phone-input-wrap input {
+        border: 0;
+        background: transparent;
+        padding-inline: 0;
+      }
+
+      .phone-input-wrap:focus-within {
+        border-color: var(--gold-bright);
+        box-shadow: 0 0 0 4px rgba(232, 201, 106, 0.12);
+      }
+
+      .phone-input-wrap input:focus {
+        box-shadow: none;
+      }
+
       .field input:focus,
       .field textarea:focus,
       .field select:focus {
@@ -1309,24 +1344,33 @@
               <form class="contact-form" id="contactForm">
                 <input
                   type="hidden"
-                  Number="_subject"
+                  name="_subject"
                   value="طلب جديد من موقع محمود الجدامي"
                 />
                 <input type="hidden" name="_template" value="table" />
                 <div class="field">
-                  <label for="Number">رقم الهاتف</label>
-                  <input
-                    id="Number"
-                    name="name"
-                    type="number"
-                    placeholder="اكتب رقم الهاتف"
-                    required
-                  />
+                  <label for="phone">رقم الهاتف</label>
+                  <div class="phone-input-wrap">
+                    <span class="phone-prefix">🇸🇦 +966</span>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      inputmode="numeric"
+                      autocomplete="tel-national"
+                      placeholder="5XXXXXXXX"
+                      minlength="9"
+                      maxlength="9"
+                      pattern="[0-9]{9}"
+                      title="اكتب 9 أرقام فقط بدون كود الدولة"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div class="field">
                   <label for="event">نوع المناسبة</label>
-                  <select id="event" Number="event" required>
+                  <select id="event" name="event" required>
                     <option value="">اختر المناسبة</option>
                     <option>حفل زفاف</option>
                     <option>خِطبة</option>
@@ -1339,7 +1383,7 @@
                   <label for="message">التفاصيل</label>
                   <textarea
                     id="message"
-                    Number="message"
+                    name="message"
                     placeholder="اكتب تاريخ المناسبة، المدينة، وأي تفاصيل مهمة"
                   ></textarea>
                 </div>
@@ -1381,6 +1425,7 @@
       const lightboxClose = document.getElementById("lightboxClose");
       const contactForm = document.getElementById("contactForm");
       const formNote = document.getElementById("formNote");
+      const phoneInput = document.getElementById("phone");
 
       mobileToggle?.addEventListener("click", () => {
         navLinks.classList.toggle("open");
@@ -1441,7 +1486,11 @@
 
       reveals.forEach((el) => observer.observe(el));
 
-      const FORMSUBMIT_EMAIL = "mosabhassan025@gmail.com";
+      const FORMSUBMIT_EMAIL = "baraahassan500@gmail.com";
+
+      phoneInput?.addEventListener("input", () => {
+        phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 9);
+      });
 
       contactForm?.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -1456,6 +1505,8 @@
 
         try {
           const fd = new FormData(contactForm);
+          const localPhone = (phoneInput?.value || "").replace(/\D/g, "");
+          fd.set("phone", `+966${localPhone}`);
           const res = await fetch(
             `https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`,
             {
